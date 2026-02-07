@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telerehabilitation - Dr. Mohammed Sameel Hassan Physiotherapist</title>
+  <meta name="description" content="Remote physiotherapy services with Dr. Mohammed Sameel Hassan. Access expert telerehabilitation from the comfort of your home with advanced technology.">
+  <link rel="canonical" href="https://drsameel.com/telerehabilitation">
+  <link rel="icon" type="image/x-icon" href="../favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    * { 
+      font-family: 'Poppins', sans-serif; 
+    }
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    
+    /* Side menu styles */
+        .side-menu {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100vh;
+          width: 300px;
+          max-width: 90%;
+          background-color: #ffffff;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+          z-index: 1000;
+          transform: translateX(-100%);
+          transition: transform 0.3s ease-in-out;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .side-menu.active {
+          transform: translateX(0);
+        }
+        
+        .side-menu-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background-color: rgba(0, 0, 0, 0.6);
+          z-index: 999;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        
+        .side-menu-overlay.active {
+          opacity: 1;
+          visibility: visible;
+        }
+        
+        .side-menu-header {
+          padding: 1.25rem;
+          border-bottom: 1px solid #e5e7eb;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        
+        .close-menu-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 1.5rem;
+          color: #4b5563;
+          padding: 0.5rem;
+          border-radius: 50%;
+          transition: background-color 0.2s;
+        }
+        
+        .close-menu-btn:hover {
+          background-color: #f3f4f6;
+        }
+        
+        .side-menu-nav {
+          flex: 1;
+          padding: 1.25rem;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .side-menu-nav a {
+          padding: 0.875rem;
+          margin: 0.3rem 0;
+          border-radius: 0.75rem;
+          text-decoration: none;
+          color: #4b5563;
+          transition: background-color 0.2s;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+        }
+        
+        .side-menu-nav a:hover {
+          background-color: #f0fdf4;
+          color: #16a34a;
+        }
+        
+        .side-menu-footer {
+          padding: 1.25rem;
+          border-top: 1px solid #e5e7eb;
+        }
+        
+        /* Mobile touch enhancements */
+        .touch-target {
+          min-height: 44px;
+          min-width: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        /* Smooth scrolling for anchor links */
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Improved mobile form elements */
+        input, select, textarea {
+          font-size: 16px; /* Prevents auto-zoom on iOS */
+        }
+        
+        /* Enhanced focus states for accessibility */
+        a:focus, button:focus {
+          outline: 2px solid #10b981;
+          outline-offset: 2px;
+        }
+        
+        /* Mobile-friendly section spacing */
+        section {
+          padding: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+          section {
+            padding: 2rem;
+          }
+        }
+  </style>
+</head>
+<body class="bg-white">
+
+<!-- Side Menu Overlay -->
+<div class="side-menu-overlay" id="side-menu-overlay"></div>
+
+<!-- Side Menu -->
+<div class="side-menu" id="side-menu">
+  <div class="side-menu-header">
+    <h2 class="text-xl font-bold text-gray-800">Navigation</h2>
+    <button class="close-menu-btn" id="close-menu-button">
+      <i data-lucide="x" class="h-6 w-6"></i>
+    </button>
+  </div>
+  <nav class="side-menu-nav">
+    <a href="../index.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Home</a>
+    <a href="./services.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Services</a>
+    <a href="./about.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">About</a>
+    <a href="./telerehab.html" class="text-green-500 font-medium transition-colors border-b-2 border-green-500">Telerehabilitation</a>
+    <a href="./testimonials.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Testimonials</a>
+    <a href="./contact.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Contact</a>
+  </nav>
+  <div class="side-menu-footer">
+    <a href="../pages/payment.html" class="bg-gradient-to-r from-green-500 to-green-400 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-green-600 hover:to-green-500 transition-all duration-200 text-center inline-block w-full">Book Appointment</a>
+  </div>
+</div>
+  <!-- Enhanced Mobile Floating Navbar with improved touch targets and visibility -->
+  <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-6xl mx-4 z-50" role="navigation">
+    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/50 px-4 py-3 flex justify-between items-center md:bg-white/80 md:rounded-full md:px-6 md:py-3">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <a href="../index.html" class="text-lg md:text-xl font-bold bg-gradient-to-r from-green-500 to-green-400 bg-clip-text text-transparent">
+            Dr. Sameel's</a>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center space-x-1">
+        <a href="../index.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Home</a>
+        <a href="./services.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Services</a>
+        <a href="./about.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">About</a>
+        <a href="./telerehab.html"
+          class="text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full bg-green-50 hover:bg-green-100">Telerehab</a>
+        <a href="./testimonials.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Reviews</a>
+        <a href="./contact.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Contact</a>
+      </div>
+      <div class="flex items-center space-x-2">
+        <a href="../pages/payment.html"
+          class="bg-gradient-to-r from-green-500 to-green-400 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-green-600 hover:to-green-500 transition-all duration-200 whitespace-nowrap hidden md:inline-block">Book</a>
+        <button class="md:hidden p-3 rounded-full text-gray-700 hover:text-green-500 hover:bg-green-50 bg-green-50/50" aria-label="Menu"
+          id="mobile-menu-button">
+          <i data-lucide="menu" class="h-6 w-6"></i>
+        </button>
+        <a href="../pages/payment.html"
+          class="md:hidden bg-gradient-to-r from-green-500 to-green-400 text-white p-3 rounded-full hover:from-green-600 hover:to-green-500 transition-all duration-200">
+          <i data-lucide="calendar" class="h-5 w-5"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="py-12 bg-gradient-to-br from-white to-green-50 md:py-16 pt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8 md:mb-12">
+            <br>
+            <br>
+            <br>
+          <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Advanced Telerehabilitation Services</h1>
+          <p class="text-base md:text-lg text-gray-600 max-w-2xl md:max-w-3xl mx-auto">Experience advanced physiotherapy from the comfort of your home with our state-of-the-art telerehabilitation technology.</p>
+        </div>
+        <img src="../sameel4.png" alt="Dr. Mohammed Sameel Hassan demonstrating telerehabilitation technology" width="500" height="500" class="w-full rounded-xl object-cover shadow-lg" loading="lazy" decoding="async" fetchpriority="auto">
+        <div class="grid grid-cols-1 gap-8 md:gap-12 items-center mb-12 md:mb-16">
+          <div class="order-2 md:order-1">
+            
+          </div>
+          <div class="order-1 md:order-2 space-y-4 md:space-y-6">
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-green-100">
+              <div class="flex items-start mb-3 md:mb-4">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-[#89d957] to-[#c9e265] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div class="ml-3 md:ml-4">
+                  <h3 class="text-lg md:text-xl font-semibold text-gray-900">Real-Time Video Sessions</h3>
+                  <p class="text-sm md:text-base text-gray-600 mt-1">High-definition video consultations with interactive exercise guidance and real-time movement analysis.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-green-100">
+              <div class="flex items-start mb-3 md:mb-4">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-[#89d957] to-[#c9e265] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                </div>
+                <div class="ml-3 md:ml-4">
+                  <h3 class="text-lg md:text-xl font-semibold text-gray-900">Progress Tracking</h3>
+                  <p class="text-sm md:text-base text-gray-600 mt-1">Advanced monitoring tools to track your recovery progress and adjust treatment plans accordingly.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-green-100">
+              <div class="flex items-start mb-3 md:mb-4">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-[#89d957] to-[#c9e265] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div class="ml-3 md:ml-4">
+                  <h3 class="text-lg md:text-xl font-semibold text-gray-900">Mobile App Integration</h3>
+                  <p class="text-sm md:text-base text-gray-600 mt-1">Access your personalized exercise programs and connect with Dr. Mohammed Sameel Hassan through our dedicated mobile app.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-gradient-to-r from-[#89d957] to-[#c9e265] rounded-2xl p-4 md:p-8 lg:p-12">
+          <div class="grid grid-cols-1 gap-6 md:gap-8 items-center">
+            <div>
+              <h3 class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-4">How Remote Sessions Work</h3>
+              <div class="space-y-3 md:space-y-4">
+                <div class="flex items-start">
+                  <div class="w-7 h-7 md:w-8 md:h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3 md:mr-4 mt-1 flex-shrink-0">
+                    <span class="text-white font-semibold text-sm md:text-base">1</span>
+                  </div>
+                  <div>
+                    <h4 class="text-base md:text-lg font-semibold text-white mb-1">Initial Assessment</h4>
+                    <p class="text-white text-opacity-90 text-sm md:text-base">Comprehensive virtual evaluation of your condition and movement patterns.</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-7 h-7 md:w-8 md:h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3 md:mr-4 mt-1 flex-shrink-0">
+                    <span class="text-white font-semibold text-sm md:text-base">2</span>
+                  </div>
+                  <div>
+                    <h4 class="text-base md:text-lg font-semibold text-white mb-1">Personalized Plan</h4>
+                    <p class="text-white text-opacity-90 text-sm md:text-base">Custom treatment program designed specifically for your needs and goals.</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-7 h-7 md:w-8 md:h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3 md:mr-4 mt-1 flex-shrink-0">
+                    <span class="text-white font-semibold text-sm md:text-base">3</span>
+                  </div>
+                  <div>
+                    <h4 class="text-base md:text-lg font-semibold text-white mb-1">Guided Sessions</h4>
+                    <p class="text-white text-opacity-90 text-sm md:text-base">Live interactive sessions with real-time feedback and exercise corrections.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="order-first md:order-last">
+              <img src="../sameel.png" alt="Dr. Mohammed Sameel Hassan demonstrating telerehabilitation technology" width="500" height="500" class="w-full rounded-xl object-cover shadow-lg" loading="lazy" decoding="async" fetchpriority="auto">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Equipment Requirements Section -->
+    <section class="py-12 bg-white md:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10 md:mb-16">
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Equipment Needed for Telerehabilitation</h2>
+          <p class="text-lg md:text-xl text-gray-600">Simple setup for effective remote therapy sessions</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div class="bg-gradient-to-br from-green-50 to-white p-6 md:p-8 rounded-2xl shadow-lg text-center">
+            <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+              <svg class="w-6 md:w-8 h-6 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M15.536 6.464a5 5 0 010 7.072m-2.828-2.828a10 10 0 000-14.142"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Device with Camera</h3>
+            <p class="text-gray-600 text-sm md:text-base">Smartphone, tablet, or computer with front-facing camera and microphone for clear communication with Dr. Mohammed Sameel Hassan.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-white p-6 md:p-8 rounded-2xl shadow-lg text-center">
+            <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+              <svg class="w-6 md:w-8 h-6 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.931-3.931 10.299-3.931 14.23 0M1.394 9.393c5.847-5.847 15.355-5.847 21.202 0"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Stable Internet</h3>
+            <p class="text-gray-600 text-sm md:text-base">Reliable broadband connection to ensure smooth video streaming and real-time interaction during sessions.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-white p-6 md:p-8 rounded-2xl shadow-lg text-center">
+            <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+              <svg class="w-6 md:w-8 h-6 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Exercise Space</h3>
+            <p class="text-gray-600 text-sm md:text-base">Dedicated area with enough room to move freely and perform prescribed exercises safely.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-white p-6 md:p-8 rounded-2xl shadow-lg text-center">
+            <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+              <svg class="w-6 md:w-8 h-6 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Basic Equipment</h3>
+            <p class="text-gray-600 text-sm md:text-base">Resistance bands, light weights, or household items as recommended for your specific treatment plan.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-white p-6 md:p-8 rounded-2xl shadow-lg text-center">
+            <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+              <svg class="w-6 md:w-8 h-6 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Session Schedule</h3>
+            <p class="text-gray-600 text-sm md:text-base">Pre-planned time slots that fit your daily routine, with flexible evening and weekend availability.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-white p-6 md:p-8 rounded-2xl shadow-lg text-center">
+            <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+              <svg class="w-6 md:w-8 h-6 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">Comfortable Attire</h3>
+            <p class="text-gray-600 text-sm md:text-base">Loose-fitting clothing that allows for easy movement and enables Dr. Mohammed Sameel Hassan to observe your form.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section class="py-12 bg-gradient-to-br from-green-50 to-white md:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10 md:mb-16">
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Benefits of Telerehabilitation</h2>
+          <p class="text-lg md:text-xl text-gray-600">Why thousands of patients choose remote therapy with Dr. Mohammed Sameel Hassan</p>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-8 md:gap-12 items-center">
+          <div class="space-y-6">
+            <div class="flex flex-col md:flex-row items-start">
+              <div class="flex-shrink-0 mb-3 md:mb-0">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-0 md:ml-4 mt-2 md:mt-0">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Convenience</h3>
+                <p class="text-gray-600 text-sm md:text-base">Receive expert care from your home, eliminating travel time and costs. Perfect for busy schedules and transportation challenges.</p>
+              </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-start">
+              <div class="flex-shrink-0 mb-3 md:mb-0">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-0 md:ml-4 mt-2 md:mt-0">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Continuity of Care</h3>
+                <p class="text-gray-600 text-sm md:text-base">Maintain your treatment schedule regardless of weather, illness, or other disruptions that might affect in-person visits.</p>
+              </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-start">
+              <div class="flex-shrink-0 mb-3 md:mb-0">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-0 md:ml-4 mt-2 md:mt-0">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Cost Effective</h3>
+                <p class="text-gray-600 text-sm md:text-base">Save on transportation costs and time off work while receiving the same quality of care as in-person sessions.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-6">
+            <div class="flex flex-col md:flex-row items-start">
+              <div class="flex-shrink-0 mb-3 md:mb-0">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-0 md:ml-4 mt-2 md:mt-0">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Personalized Attention</h3>
+                <p class="text-gray-600 text-sm md:text-base">One-on-one sessions tailored to your specific needs, with Dr. Mohammed Sameel Hassan's full attention throughout the session.</p>
+              </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-start">
+              <div class="flex-shrink-0 mb-3 md:mb-0">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-0 md:ml-4 mt-2 md:mt-0">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Real-Time Feedback</h3>
+                <p class="text-gray-600 text-sm md:text-base">Immediate correction of exercises and techniques to ensure maximum effectiveness and safety.</p>
+              </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-start">
+              <div class="flex-shrink-0 mb-3 md:mb-0">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-500 to-green-400 rounded-full flex items-center justify-center">
+                  <svg class="w-5 md:w-6 h-5 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-0 md:ml-4 mt-2 md:mt-0">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Progress Monitoring</h3>
+                <p class="text-gray-600 text-sm md:text-base">Continuous tracking of your improvement with digital tools that record and analyze your recovery journey.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Call to Action Section -->
+    <section class="relative py-12 md:py-20 overflow-hidden bg-gradient-to-br from-green-500 to-green-400">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 md:mb-6">Start Your Telerehabilitation Journey Today</h2>
+        <p class="text-base md:text-lg text-white/90 mb-6 md:mb-8 max-w-2xl mx-auto">Experience the convenience and effectiveness of remote physiotherapy with Dr. Mohammed Sameel Hassan's expert guidance.</p>
+        <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
+          <a href="../pages/payment.html" class="bg-white text-green-600 px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold text-base md:text-lg hover:bg-gray-50 transition-colors shadow-lg w-full sm:w-auto text-center">Book Telerehab Session</a>
+          <a href="../pages/payment.html" class="bg-gradient-to-r from-green-500 to-green-400 text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold text-base md:text-lg hover:from-green-600 hover:to-green-500 transition-all duration-200 w-full sm:w-auto text-center">Book Appointment</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-black text-white py-8 md:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+        <div class="text-left">
+          <h3 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent mb-2 md:mb-4">Dr. Sameel Hassan</h3>
+          <p class="text-sm md:text-base">Physiotherapist &amp; Telerehabilitation Specialist</p>
+          <p class="text-gray-300 text-xs sm:text-sm md:text-base mt-2 md:mt-4 mb-4">Expert physiotherapy and telerehabilitation services. Helping patients recover and maintain optimal physical health through personalized treatment plans.</p>
+          <div class="flex justify-start space-x-4">
+            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors" aria-label="Facebook">
+              <i data-lucide="facebook" class="h-5 w-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors" aria-label="Twitter">
+              <i data-lucide="twitter" class="h-5 w-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="h-5 w-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors" aria-label="Instagram">
+              <i data-lucide="instagram" class="h-5 w-5"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="text-left">
+          <h4 class="text-base md:text-lg font-semibold mb-4">Services</h4>
+          <ul class="space-y-2">
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Physiotherapy</a></li>
+            <li><a href="./pages/telerehab.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Telerehabilitation</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Sports Therapy</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Pain Management</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Joint & Muscle Pain Therapy</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Postural Correction & Spinal Care</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Post Surgery Rehabilitation</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Orthopaedic Rehabilitation</a></li>
+            <li><a href="./pages/fitness.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Fitness Guidance</a></li>
+          </ul>
+        </div>
+        
+        <div class="text-left">
+          <h4 class="text-base md:text-lg font-semibold mb-4">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="./pages/about.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">About Dr. Sameel</a></li>
+            <li><a href="./pages/testimonials.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Patient Stories</a></li>
+            <li><a href="./pages/contact.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="text-left">
+          <h4 class="text-base md:text-lg font-semibold mb-4">Support</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Help Center</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Terms of Service</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-6 md:mt-8 pt-6 md:pt-8 flex flex-col md:flex-row justify-start items-start">
+        <p class="text-gray-400 text-xs sm:text-sm">© 2026 Dr. Sameel. All rights reserved.</p>
+        <div class="flex flex-wrap justify-start gap-4 mt-2 md:mt-0">
+          <a href="#" class="text-gray-400 hover:text-green-400 text-xs sm:text-sm transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-green-400 text-xs sm:text-sm transition-colors">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-green-400 text-xs sm:text-sm transition-colors">Cookie Policy</a>
+          <a href="https://echoess.in" class="text-gray-400 hover:text-green-400 text-xs sm:text-sm transition-colors" target="_blank">Developed by Echoes Software Technologies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Mobile touch enhancements and side menu functionality
+        document.addEventListener('DOMContentLoaded', function () {
+          const mobileMenuButton = document.getElementById('mobile-menu-button');
+          const sideMenu = document.getElementById('side-menu');
+          const sideMenuOverlay = document.getElementById('side-menu-overlay');
+          const closeMenuButton = document.getElementById('close-menu-button');
+          
+          // Add touch event listeners for better mobile experience
+          if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+          }
+
+          if (mobileMenuButton && sideMenu && sideMenuOverlay) {
+            mobileMenuButton.addEventListener('click', function (e) {
+              e.preventDefault();
+              sideMenu.classList.add('active');
+              sideMenuOverlay.classList.add('active');
+              document.body.style.overflow = 'hidden'; // Prevent background scrolling
+              lucide.createIcons(); // Reinitialize icons
+            });
+
+            // Close side menu when clicking the overlay
+            sideMenuOverlay.addEventListener('click', function (e) {
+              e.preventDefault();
+              sideMenu.classList.remove('active');
+              sideMenuOverlay.classList.remove('active');
+              document.body.style.overflow = ''; // Restore scrolling
+            });
+            
+            // Close side menu when clicking the close button
+            if (closeMenuButton) {
+              closeMenuButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                sideMenu.classList.remove('active');
+                sideMenuOverlay.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+              });
+            }
+            
+            // Close menu when clicking on any link inside the menu
+            const menuLinks = document.querySelectorAll('.side-menu-nav a');
+            menuLinks.forEach(link => {
+              link.addEventListener('click', function(e) {
+                // Close menu immediately without delay
+                sideMenu.classList.remove('active');
+                sideMenuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+              });
+            });
+          }
+          
+          // Enhanced scroll behavior for mobile
+          const anchorLinks = document.querySelectorAll('a[href^="#"]');
+          anchorLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+              const href = this.getAttribute('href');
+              if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                  const offsetTop = target.offsetTop - 100; // Account for fixed navbar
+                  window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                  });
+                  
+                  // Close mobile menu if open
+                  sideMenu.classList.remove('active');
+                  sideMenuOverlay.classList.remove('active');
+                  document.body.style.overflow = '';
+                }
+              }
+            });
+          });
+        });
+    
+    // Re-initialize all Lucide icons after DOM is fully loaded to ensure footer icons render
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+          lucide.createIcons();
+        }, 100);
+      });
+    } else {
+      // If DOM is already loaded, initialize immediately
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

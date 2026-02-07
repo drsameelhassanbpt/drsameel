@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Confirmation - Dr. Mohammed Sameel Hassan</title>
+  <meta name="description" content="Complete your payment for physiotherapy consultation with Dr. Mohammed Sameel Hassan using UPI.">
+  <link rel="canonical" href="https://drsameel.com/pages/payment.html">
+  <link rel="icon" type="image/x-icon" href="../favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    * { 
+      font-family: 'Poppins', sans-serif; 
+    }
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    
+    /* Payment success animation */
+    .payment-success-animation {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Animation delays for ping animation */
+    .animate-delay-200 {
+      animation-delay: 0.2s;
+    }
+    
+    .animate-delay-400 {
+      animation-delay: 0.4s;
+    }
+    
+    /* Modal animation */
+    .modal-show {
+      display: flex !important;
+      animation: fadeIn 0.3s forwards;
+    }
+    
+    .modal-content-show {
+      animation: scaleIn 0.3s forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+      from { 
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      to { 
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    /* Side menu styles */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 300px;
+      max-width: 90%;
+      background-color: #ffffff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .side-menu.active {
+      transform: translateX(0);
+    }
+    
+    .side-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+    
+    .side-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .side-menu-header {
+      padding: 1.25rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .close-menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #4b5563;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+    }
+    
+    .close-menu-btn:hover {
+      background-color: #f3f4f6;
+    }
+    
+    .side-menu-nav {
+      flex: 1;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .side-menu-nav a {
+      padding: 0.875rem;
+      margin: 0.3rem 0;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      color: #4b5563;
+      transition: background-color 0.2s;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .side-menu-nav a:hover {
+      background-color: #f0fdf4;
+      color: #16a34a;
+    }
+    
+    .side-menu-footer {
+      padding: 1.25rem;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    /* Mobile touch enhancements */
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Smooth scrolling for anchor links */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Payment section specific styles */
+    .upi-qr-container {
+      position: relative;
+      display: inline-block;
+      padding: 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .upi-qr-placeholder {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+      border: 2px dashed #93c5fd;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    
+    .upi-info-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    
+    .payment-success-animation {
+      animation: bounce 0.5s ease infinite alternate;
+    }
+    
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-5px); }
+    }
+    
+    /* Mobile-friendly section spacing */
+    section {
+      padding: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      section {
+        padding: 2rem;
+      }
+    }
+    
+    /* Mobile-optimized navbar */
+    @media (max-width: 767px) {
+      nav.fixed.top-4.left-1\/2.transform.-translate-x-1\/2.w-full.max-w-6xl.mx-4.z-50 {
+        top: 0.5rem;
+        left: 0.5rem;
+        right: 0.5rem;
+        transform: none;
+        width: calc(100% - 1rem);
+      }
+      
+      .bg-white\/90.backdrop-blur-md.rounded-2xl.shadow-xl.border.border-white\/50.px-4.py-3.flex.justify-between.items-center.md:bg-white\/80.md:rounded-full.md:px-6.md:py-3 {
+        border-radius: 1rem !important;
+        padding: 0.75rem !important;
+      }
+      
+      .flex-shrink-0 a.text-lg.md\:text-xl.font-bold.bg-gradient-to-r.from-green-500.to-green-400.bg-clip-text.text-transparent {
+        font-size: 1.1rem !important;
+      }
+      
+      .hidden.md\:flex.items-center.space-x-1 {
+        display: none;
+      }
+      
+      .flex.items-center.space-x-2 {
+        flex: 1;
+        justify-content: flex-end;
+      }
+      
+      .bg-gradient-to-r.from-green-500.to-green-400.text-white.px-4.py-2.rounded-full.text-sm.font-medium.hover\:from-green-600.hover\:to-green-500.transition-all.duration-200.whitespace-nowrap.hidden.md\:inline-block {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Side Menu Overlay -->
+  <div class="side-menu-overlay" id="side-menu-overlay"></div>
+
+  <!-- Side Menu -->
+  <div class="side-menu" id="side-menu">
+    <div class="side-menu-header">
+      <h2 class="text-xl font-bold text-gray-800">Navigation</h2>
+      <button class="close-menu-btn" id="close-menu-button">
+        <i data-lucide="x" class="h-6 w-6"></i>
+      </button>
+    </div>
+    <nav class="side-menu-nav">
+      <a href="../index.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Home</a>
+      <a href="./services.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Services</a>
+      <a href="./about.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">About</a>
+      <a href="./telerehab.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Telerehabilitation</a>
+      <a href="./testimonials.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Testimonials</a>
+      <a href="./contact.html" class="text-gray-700 hover:text-green-500 font-medium transition-colors">Contact</a>
+    </nav>
+    <div class="side-menu-footer">
+      <a href="../index.html" class="bg-gradient-to-r from-green-500 to-green-400 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-green-600 hover:to-green-500 transition-all duration-200 text-center inline-block w-full">Home</a>
+    </div>
+  </div>
+
+  <!-- Enhanced Mobile Floating Navbar with improved touch targets and visibility -->
+  <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-6xl mx-4 z-50" role="navigation">
+    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/50 px-4 py-3 flex justify-between items-center md:bg-white/80 md:rounded-full md:px-6 md:py-3">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <a href="../index.html" class="text-lg md:text-xl font-bold bg-gradient-to-r from-green-500 to-green-400 bg-clip-text text-transparent">
+            Dr. Sameel's</a>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center space-x-1">
+        <a href="../index.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Home</a>
+        <a href="./services.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Services</a>
+        <a href="./about.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">About</a>
+        <a href="./telerehab.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Telerehab</a>
+        <a href="./testimonials.html"
+          class="text-gray-700 hover:text-green-500 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Reviews</a>
+        <a href="./contact.html"
+          class="text-gray-700 px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/50">Contact</a>
+      </div>
+      <div class="flex items-center space-x-2">
+        <button class="md:hidden p-3 rounded-full text-gray-700 hover:text-green-500 hover:bg-green-50 bg-green-50/50" aria-label="Menu"
+          id="mobile-menu-button">
+          <i data-lucide="menu" class="h-6 w-6"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="py-16 bg-gradient-to-br from-green-50 to-white pt-24">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+            <i data-lucide="credit-card" class="h-8 w-8 text-green-600"></i>
+          </div>
+          <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Complete Your Payment</h1>
+          <p class="text-base md:text-lg text-gray-600 max-w-xl md:max-w-2xl mx-auto">Securely pay for your physiotherapy consultation using UPI</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- UPI QR Code Section -->
+            <div class="flex flex-col items-center">
+              <h2 class="text-xl font-bold text-gray-900 mb-4">Scan UPI QR Code</h2>
+              <div class="upi-qr-container">
+                <img src="../scanner.jpeg" alt="UPI QR Code Scanner" class="w-48 h-48 object-contain rounded-lg shadow-md">
+              </div>
+              <p class="text-sm text-gray-600 mt-4 text-center">Open your UPI app (Google Pay, PhonePe, Paytm, etc.) and scan this QR code to make payment</p>
+            </div>
+            
+            <!-- Payment Details Section -->
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 mb-4">Payment Details</h2>
+              
+              <div class="upi-info-box mb-6">
+                <h3 class="font-semibold text-gray-900 mb-2">UPI ID:</h3>
+                <div class="flex items-center justify-between bg-white p-3 rounded-lg border">
+                  <span class="font-mono text-gray-800 break-all">9600711895@ybl</span>
+                  <button id="copy-upi-id" class="text-green-600 hover:text-green-700 ml-2">
+                    <i data-lucide="copy" class="h-5 w-5"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="mb-6">
+                <h3 class="font-semibold text-gray-900 mb-2">Amount to Pay:</h3>
+                <div class="text-2xl font-bold text-green-600">₹500</div>
+                <p class="text-sm text-gray-600 mt-1">Consultation fee for physiotherapy session</p>
+              </div>
+              
+              <div class="mb-6">
+                <h3 class="font-semibold text-gray-900 mb-2">Payment Instructions:</h3>
+                <ol class="list-decimal list-inside space-y-1 text-sm text-gray-600">
+                  <li>Scan QR code with your UPI app or copy the UPI ID</li>
+                  <li>Enter the amount ₹500 (if not pre-filled)</li>
+                  <li>Confirm the payment details</li>
+                  <li>Wait for payment confirmation</li>
+                </ol>
+              </div>
+              
+              <div class="flex flex-col sm:flex-row gap-3">
+                <button id="payment-verified-btn" class="flex-1 bg-gradient-to-r from-green-500 to-green-400 text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 flex items-center justify-center">
+                  <i data-lucide="check-circle" class="h-5 w-5 mr-2"></i>
+                  Mark Payment as Complete
+                </button>
+                <button id="show-payment-options" class="flex-1 border border-green-500 text-green-600 py-3 px-4 rounded-lg font-semibold hover:bg-green-50 transition-all duration-200 flex items-center justify-center">
+                  <i data-lucide="smartphone" class="h-5 w-5 mr-2"></i>
+                  Other Options
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- User Information Form -->
+          <div class="mt-8 p-6 bg-gray-50 rounded-xl">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Patient Information</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="patient-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <input type="text" id="patient-name" name="patient-name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors" placeholder="Enter your full name">
+              </div>
+              <div>
+                <label for="patient-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                <input type="tel" id="patient-phone" name="patient-phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors" placeholder="Enter your phone number">
+              </div>
+              <div>
+                <label for="patient-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <input type="email" id="patient-email" name="patient-email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors" placeholder="Enter your email">
+              </div>
+              <div>
+                <label for="preferred-date" class="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
+                <input type="date" id="preferred-date" name="preferred-date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors">
+              </div>
+              <div class="md:col-span-2">
+                <label for="service-type" class="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
+                <select id="service-type" name="service-type" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors">
+                  <option value="">Select a service</option>
+                  <option value="physiotherapy">Physiotherapy Consultation</option>
+                  <option value="telerehab">Telerehabilitation</option>
+                  <option value="sports">Sports Therapy</option>
+                  <option value="pain">Pain Management</option>
+                  <option value="post-surgical">Post-Surgical Rehabilitation</option>
+                  <option value="fitness">Fitness Guidance</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Alternative Payment Methods -->
+          <div id="payment-options-panel" class="mt-8 p-4 bg-gray-50 rounded-xl hidden">
+            <h3 class="font-semibold text-gray-900 mb-3">Alternative Payment Methods:</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-white p-4 rounded-lg border text-center">
+                <i data-lucide="smartphone" class="h-8 w-8 text-green-500 mx-auto mb-2"></i>
+                <h4 class="font-medium text-gray-900">Google Pay</h4>
+                <p class="text-xs text-gray-600">9600711895@ybl</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg border text-center">
+                <i data-lucide="smartphone" class="h-8 w-8 text-green-500 mx-auto mb-2"></i>
+                <h4 class="font-medium text-gray-900">PhonePe</h4>
+                <p class="text-xs text-gray-600">9600711895@ybl</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg border text-center">
+                <i data-lucide="smartphone" class="h-8 w-8 text-green-500 mx-auto mb-2"></i>
+                <h4 class="font-medium text-gray-900">Paytm</h4>
+                <p class="text-xs text-gray-600">9600711895@ybl</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Success Message (Initially Hidden) -->
+          <div id="success-message" class="mt-8 p-6 bg-green-50 border border-green-200 rounded-xl hidden">
+            <div class="flex items-start">
+              <div class="flex-shrink-0">
+                <i data-lucide="circle-check" class="h-10 w-10 text-green-500 payment-success-animation"></i>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-semibold text-green-800">Payment Confirmed!</h3>
+                <p class="text-green-700 mt-1">Thank you for your payment. Your consultation has been scheduled successfully.</p>
+                <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                  <a href="./appointment-confirmed.html" class="bg-gradient-to-r from-green-500 to-green-400 text-white py-2 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 text-center">
+                    View Appointment Details
+                  </a>
+                  <a href="../index.html" class="border border-green-500 text-green-600 py-2 px-4 rounded-lg font-semibold hover:bg-green-50 transition-all duration-200 text-center">
+                    Return Home
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Payment Completion Information Modal -->
+          <div id="payment-info-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-2xl p-6 m-4 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                  <i data-lucide="check-circle" class="h-8 w-8 text-green-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Payment Completed Successfully!</h3>
+                <p class="text-gray-600 mb-4">Thank you for your payment. Here's what happens next:</p>
+                
+                <div class="text-left space-y-3 mb-6">
+                  <div class="flex items-start">
+                    <i data-lucide="calendar-check" class="h-5 w-5 text-green-500 mt-0.5 mr-2"></i>
+                    <span class="text-gray-700">Your appointment is being scheduled</span>
+                  </div>
+                  <div class="flex items-start">
+                    <i data-lucide="user-check" class="h-5 w-5 text-green-500 mt-0.5 mr-2"></i>
+                    <span class="text-gray-700">Appointment details will be confirmed shortly</span>
+                  </div>
+                  <div class="flex items-start">
+                    <i data-lucide="message-circle" class="h-5 w-5 text-green-500 mt-0.5 mr-2"></i>
+                    <span class="text-gray-700">Contact us on WhatsApp for any queries</span>
+                  </div>
+                  <div class="flex items-start">
+                    <i data-lucide="clock" class="h-5 w-5 text-green-500 mt-0.5 mr-2"></i>
+                    <span class="text-gray-700">Redirecting to confirmation page...</span>
+                  </div>
+                </div>
+                
+                <div class="flex justify-center space-x-2 mb-4">
+                  <div class="w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+                  <div class="w-2 h-2 bg-green-400 rounded-full animate-ping animate-delay-200"></div>
+                  <div class="w-2 h-2 bg-green-400 rounded-full animate-ping animate-delay-400"></div>
+                </div>
+                
+                <button id="close-info-modal" class="bg-gradient-to-r from-green-500 to-green-400 text-white px-6 py-2 rounded-full font-medium hover:shadow-lg transition-all duration-200">
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-black text-white py-8 md:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+        <div class="text-left">
+          <h3 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent mb-2 md:mb-4">Dr. Sameel Hassan</h3>
+          <p class="text-sm md:text-base">Physiotherapist &amp; Telerehabilitation Specialist</p>
+          <p class="text-gray-300 text-xs sm:text-sm md:text-base mt-2 md:mt-4 mb-4">Expert physiotherapy and telerehabilitation services. Helping patients recover and maintain optimal physical health through personalized treatment plans.</p>
+          <div class="flex justify-start space-x-4">
+            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors" aria-label="Facebook">
+              <i data-lucide="facebook" class="h-5 w-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors" aria-label="Twitter">
+              <i data-lucide="twitter" class="h-5 w-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="h-5 w-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors" aria-label="Instagram">
+              <i data-lucide="instagram" class="h-5 w-5"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="text-left">
+          <h4 class="text-base md:text-lg font-semibold mb-4">Services</h4>
+          <ul class="space-y-2">
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Physiotherapy</a></li>
+            <li><a href="./pages/telerehab.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Telerehabilitation</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Sports Therapy</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Pain Management</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Joint & Muscle Pain Therapy</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Postural Correction & Spinal Care</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Post Surgery Rehabilitation</a></li>
+            <li><a href="./pages/services.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Orthopaedic Rehabilitation</a></li>
+            <li><a href="./pages/fitness.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Fitness Guidance</a></li>
+          </ul>
+        </div>
+        
+        <div class="text-left">
+          <h4 class="text-base md:text-lg font-semibold mb-4">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="./pages/about.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">About Dr. Sameel</a></li>
+            <li><a href="./pages/testimonials.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Patient Stories</a></li>
+            <li><a href="./pages/contact.html" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="text-left">
+          <h4 class="text-base md:text-lg font-semibold mb-4">Support</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Help Center</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Terms of Service</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 transition-colors text-xs sm:text-sm md:text-base">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-6 md:mt-8 pt-6 md:pt-8 flex flex-col md:flex-row justify-start items-start">
+        <p class="text-gray-400 text-xs sm:text-sm">© 2026 Dr. Sameel. All rights reserved.</p>
+        <div class="flex flex-wrap justify-start gap-4 mt-2 md:mt-0">
+          <a href="#" class="text-gray-400 hover:text-green-400 text-xs sm:text-sm transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-green-400 text-xs sm:text-sm transition-colors">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-green-400 text-xs sm:text-sm transition-colors">Cookie Policy</a>
+          <a href="https://echoess.in" class="text-gray-400 hover:text-green-400 text-xs sm:text-sm transition-colors" target="_blank">Developed by Echoes Software Technologies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Payment page functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile touch enhancements and side menu functionality
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const sideMenu = document.getElementById('side-menu');
+      const sideMenuOverlay = document.getElementById('side-menu-overlay');
+      const closeMenuButton = document.getElementById('close-menu-button');
+      const copyUpiIdBtn = document.getElementById('copy-upi-id');
+      const paymentVerifiedBtn = document.getElementById('payment-verified-btn');
+      const showPaymentOptionsBtn = document.getElementById('show-payment-options');
+      const paymentOptionsPanel = document.getElementById('payment-options-panel');
+      const successMessage = document.getElementById('success-message');
+      
+      // Toggle payment options panel
+      if (showPaymentOptionsBtn) {
+        showPaymentOptionsBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          paymentOptionsPanel.classList.toggle('hidden');
+          const icon = this.querySelector('i');
+          if (paymentOptionsPanel.classList.contains('hidden')) {
+            lucide.createIcons();
+          } else {
+            icon.setAttribute('data-lucide', 'x');
+            lucide.createIcons();
+          }
+        });
+      }
+      
+      // Copy UPI ID to clipboard
+      if (copyUpiIdBtn) {
+        copyUpiIdBtn.addEventListener('click', function() {
+          const upiIdElement = this.previousElementSibling;
+          const upiId = upiIdElement.textContent;
+          
+          navigator.clipboard.writeText(upiId).then(function() {
+            // Show temporary success feedback
+            const originalIcon = copyUpiIdBtn.innerHTML;
+            copyUpiIdBtn.innerHTML = '<i data-lucide="check" class="h-5 w-5"></i>';
+            lucide.createIcons();
+            
+            setTimeout(function() {
+              copyUpiIdBtn.innerHTML = originalIcon;
+              lucide.createIcons();
+            }, 2000);
+          }).catch(function(err) {
+            console.error('Failed to copy UPI ID: ', err);
+          });
+        });
+      }
+      
+      // Handle payment verification
+      if (paymentVerifiedBtn) {
+        paymentVerifiedBtn.addEventListener('click', function() {
+          // Collect user information
+          const patientName = document.getElementById('patient-name').value.trim();
+          const patientPhone = document.getElementById('patient-phone').value.trim();
+          const patientEmail = document.getElementById('patient-email').value.trim();
+          const preferredDate = document.getElementById('preferred-date').value;
+          const serviceType = document.getElementById('service-type').value;
+
+          // Validate required fields
+          if (!patientName || !patientPhone || !patientEmail || !preferredDate || !serviceType) {
+            alert('Please fill in all required fields before proceeding.');
+            return;
+          }
+
+          // Validate phone number format
+          const phoneRegex = /^[0-9]{10}$/;
+          if (!phoneRegex.test(patientPhone)) {
+            alert('Please enter a valid 10-digit phone number.');
+            return;
+          }
+
+          // Validate email format
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(patientEmail)) {
+            alert('Please enter a valid email address.');
+            return;
+          }
+
+          // Prepare data to pass to the confirmation page
+          const appointmentData = {
+            patientName: patientName,
+            patientPhone: patientPhone,
+            patientEmail: patientEmail,
+            preferredDate: preferredDate,
+            serviceType: serviceType,
+            appointmentTime: new Date().toLocaleString()
+          };
+
+          // Store data in localStorage to pass to the confirmation page
+          localStorage.setItem('appointmentData', JSON.stringify(appointmentData));
+
+          // Show animated payment info modal instead of success message
+          const modal = document.getElementById('payment-info-modal');
+          const modalContent = modal.querySelector('div');
+          
+          // Show modal with animation
+          modal.classList.remove('hidden');
+          modal.classList.add('modal-show');
+          modalContent.classList.add('modal-content-show');
+          
+          // Handle continue button click
+          document.getElementById('close-info-modal').addEventListener('click', function() {
+            // Remove animation classes
+            modal.classList.remove('modal-show');
+            modalContent.classList.remove('modal-content-show');
+            
+            // Hide modal and redirect
+            setTimeout(function() {
+              modal.classList.add('hidden');
+              window.location.href = './appointment-confirmed.html';
+            }, 300);
+          });
+          
+          // Auto redirect after 5 seconds if user doesn't click continue
+          setTimeout(function() {
+            if (!modal.classList.contains('hidden')) {
+              modal.classList.remove('modal-show');
+              modalContent.classList.remove('modal-content-show');
+              setTimeout(function() {
+                modal.classList.add('hidden');
+                window.location.href = './appointment-confirmed.html';
+              }, 300);
+            }
+          }, 5000);
+        });
+      }
+      
+      // Side menu functionality
+      if (mobileMenuButton && sideMenu && sideMenuOverlay) {
+        mobileMenuButton.addEventListener('click', function (e) {
+          e.preventDefault();
+          sideMenu.classList.add('active');
+          sideMenuOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Prevent background scrolling
+          lucide.createIcons(); // Reinitialize icons
+        });
+
+        // Close side menu when clicking the overlay
+        sideMenuOverlay.addEventListener('click', function (e) {
+          e.preventDefault();
+          sideMenu.classList.remove('active');
+          sideMenuOverlay.classList.remove('active');
+          document.body.style.overflow = ''; // Restore scrolling
+        });
+        
+        // Close side menu when clicking the close button
+        if (closeMenuButton) {
+          closeMenuButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            sideMenu.classList.remove('active');
+            sideMenuOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+          });
+        }
+        
+        // Close menu when clicking on any link inside the menu
+        const menuLinks = document.querySelectorAll('.side-menu-nav a');
+        menuLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            // Close menu immediately without delay
+            sideMenu.classList.remove('active');
+            sideMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        });
+      }
+      
+      // Enhanced scroll behavior for mobile
+      const anchorLinks = document.querySelectorAll('a[href^="#"]');
+      anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href !== '#') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              const offsetTop = target.offsetTop - 100; // Account for fixed navbar
+              window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+              });
+              
+              // Close mobile menu if open
+              sideMenu.classList.remove('active');
+              sideMenuOverlay.classList.remove('active');
+              document.body.style.overflow = '';
+            }
+          }
+        });
+      });
+      
+      // Reinitialize icons after dynamic content changes
+      lucide.createIcons();
+    });
+    
+    // Re-initialize all Lucide icons after DOM is fully loaded to ensure footer icons render
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+          lucide.createIcons();
+        }, 100);
+      });
+    } else {
+      // If DOM is already loaded, initialize immediately
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
