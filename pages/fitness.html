@@ -136,6 +136,25 @@
       font-size: 16px; /* Prevents auto-zoom on iOS */
     }
     
+    /* Fix navbar centering on mobile */
+    @media (max-width: 768px) {
+      nav.fixed {
+        width: calc(100% - 2rem) !important;
+        max-width: none !important;
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+        left: 0 !important;
+        transform: none !important;
+        right: 0 !important;
+        margin: 0 auto !important;
+      }
+      
+      /* Ensure the navbar container is properly centered */
+      nav.fixed > div {
+        margin: 0 auto;
+      }
+    }
+    
     /* Enhanced focus states for accessibility */
     a:focus, button:focus {
       outline: 2px solid #10b981;
